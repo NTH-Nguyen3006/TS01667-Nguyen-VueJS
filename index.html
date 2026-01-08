@@ -4,11 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <script src="../bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+    <title>Hoàng Nguyên - TS01667</title>
 </head>
 
 <body>
-    <a href="./lab1/">Lab 1 </a>
+    <div class="container my-5">
+        <h1 href="./lab1/">24 - TS01667 - Nguyễn Tấn Hoàng Nguyên </h1>
+        <table class="table table-info table-striped table-hover table-bordered" id="labs">
+            <thead>
+                <tr>
+                    <th scope="col">Cái gì đây ?</th>
+                    <!-- <th scope="col" class="px-5">Mô tả</th> -->
+                    <th scope="col" class="px-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Lab 1</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Lab 2 </th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Lab 3</th>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js">
+    </script>
+    <script>
+        $("#labs>tbody").children().toArray().forEach(tr => {
+            const content = tr.firstElementChild.innerHTML.replace(" ", "").toLowerCase();
+            const linkTag = document.createElement("a");
+            linkTag.href = "./" + content;
+            linkTag.className = "btn btn-primary";
+            linkTag.innerText = "Xem ngay"
+            tr.style.lineHeight = "3"
+            tr.lastElementChild.appendChild(linkTag);
+            tr.lastElementChild.style = "text-align: center;"
+        });
+    </script>
 </body>
 
 </html>
