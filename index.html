@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <script src="../bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <script src="./bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
     <title>Hoàng Nguyên - TS01667</title>
 </head>
 
@@ -37,20 +37,8 @@
         </table>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js">
-    </script>
-    <script>
-        $("#labs>tbody").children().toArray().forEach(tr => {
-            const content = tr.firstElementChild.innerHTML.replace(" ", "").toLowerCase();
-            const linkTag = document.createElement("a");
-            linkTag.href = "./" + content;
-            linkTag.className = "btn btn-primary";
-            linkTag.innerText = "Xem ngay"
-            tr.style.lineHeight = "3"
-            tr.lastElementChild.appendChild(linkTag);
-            tr.lastElementChild.style = "text-align: center;"
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
