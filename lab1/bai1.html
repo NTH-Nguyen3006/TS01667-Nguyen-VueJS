@@ -8,22 +8,25 @@
     <script src="../bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
     <title>Bai 1 - Lab 1</title>
     <style>
-        body *,
-        .row * {
+        body * {
             padding: 20px;
         }
     </style>
 </head>
 
 <body>
-    <header class="bg-warning">header</header>
-    <nav class="bg-primary">Navbar</nav>
+    <div class="container">
+        <div class="row">
+            <header class="bg-warning">header</header>
+            <nav class="bg-primary">Navbar</nav>
 
-    <div class="row p-0">
-        <aside class="col-4 bg-success">Aside</aside>
-        <main class="col-8 bg-info">Main content</main>
+            <aside class="col-4 bg-success">Aside</aside>
+            <main class="col-8 bg-info">Main content</main>
+            <footer class="bg-danger col-8">F1</footer>
+            <footer class="bg-warning col-4">f2</footer>
+        </div>
+
     </div>
-    <footer class="bg-danger">Footer</footer>
 </body>
 
 </html>
