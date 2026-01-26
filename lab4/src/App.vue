@@ -1,10 +1,13 @@
 <script setup>
-// import Bai3 from './components/Bai3.vue';
-import Test from './components/Test.vue';
+
+// import Bai4 from './components/Bai4.vue';  
+import Bai3 from './components/Bai3.vue';
+import Card from './components/Card.vue';
 </script>
 
 <template>
-  <Test />
+  <!-- <Bai3 /> -->
+  <Card />
 </template>
 
 <style scoped>

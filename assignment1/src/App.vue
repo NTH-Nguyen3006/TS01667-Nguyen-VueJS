@@ -1,10 +1,16 @@
 <script setup>
 // import Auth from './components/views/Auth.vue';
-import Profile from './components/views/Profile.vue';
+import ArticleDetail from './components/views/ArticleDetail.vue';
+import Header from './components/Layout/Header.vue';
+import Footer from './components/Layout/Footer.vue';
+import HomeViews from './components/views/HomeViews.vue';
 </script>
 
 <template>
-  <Profile />
+  <Header />
+  <HomeViews />
+  <!-- <ArticleDetail /> -->
+  <Footer />
 </template>
 
 <style scoped>

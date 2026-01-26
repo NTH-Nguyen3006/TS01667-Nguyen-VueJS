@@ -8,3 +8,5 @@ $("#labs>tbody").children().toArray().forEach(tr => {
     tr.lastElementChild.appendChild(linkTag);
     tr.lastElementChild.style = "text-align: center;"
 });
+
+
