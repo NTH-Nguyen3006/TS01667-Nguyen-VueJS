@@ -3,7 +3,7 @@
         <h3>Nhập điểm của bạn:</h3>
         <input type="number" v-model.number="score" class="form-control mb-2" placeholder="Nhập điểm">
 
-        <div v-if="score !== 0">
+        <div v-if="score != 0">
             <p v-if="score < 5">Yếu</p>
             <p v-else-if="score < 6.5">Trung bình</p>
             <p v-else-if="score < 8.0">Khá</p>
