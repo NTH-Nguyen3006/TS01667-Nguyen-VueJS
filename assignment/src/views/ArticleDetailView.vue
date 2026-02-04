@@ -50,23 +50,23 @@
 
                 <hr class="my-5">
 
-                <!-- Comment Section (Giữ nguyên cấu trúc của bạn) -->
+
                 <section id="comments">
-                    <h4 class="fw-bold mb-4">Bình luận (2)</h4>
+                    <h4 class="fw-bold mb-4">Bình luận ()</h4>
                     <div class="mb-5">
                         <div class="d-flex mb-4">
-                            <div class="flex-shrink-0">
-                                <div class="bg-secondary rounded-circle" style="width: 45px; height: 45px;"></div>
-                            </div>
                             <div class="ms-3 p-3 bg-light rounded-4 w-100">
-                                <div class="d-flex justify-content-between mb-1"><span class="fw-bold">Minh
-                                        Anh</span><small class="text-muted">2 giờ trước</small></div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-bold fs-5 text-primary"> Minh Anh </span>
+                                    <small class="text-muted">2 giờ trước</small>
+                                </div>
                                 <p class="mb-0 small">Bài viết rất hữu ích ạ!</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Form bình luận -->
+
+
                     <div class="card border-0 bg-light p-4 rounded-4 shadow-sm">
                         <h5 class="fw-bold mb-3">Để lại bình luận</h5>
                         <form @submit.prevent>
@@ -85,13 +85,14 @@
                 </section>
             </div>
 
-            <!-- Cột phải: Sidebar bài viết mới nhất -->
+
+
             <div class="col-lg-4 ps-lg-5">
                 <div class="sticky-top" style="top: 90px; z-index: 1;">
                     <h5 class="fw-bold mb-4 pb-2 border-bottom">Bài viết mới nhất</h5>
                     <div class="vstack gap-4">
                         <!-- Load 4 bài mới nhất trừ bài hiện tại -->
-                        <router-link v-for="recent in recentPosts" :key="recent.id" :to="'/detail/' + recent.id"
+                        <router-link v-for="recent in recentPosts" :key="recent.id" :to="'/article/' + recent.id"
                             class="text-decoration-none d-flex align-items-center gap-3 group">
                             <img :src="recent.image" class="rounded-3 object-fit-cover shadow-sm"
                                 style="width: 80px; height: 80px;">
@@ -115,7 +116,7 @@
 
             <div class="row g-4">
                 <div class="col-md-4" v-for="other in otherPosts" :key="other.id">
-                    <router-link :to="'/detail/' + other.id" class="text-decoration-none">
+                    <router-link :to="'/article/' + other.id" class="text-decoration-none">
                         <div class="card border-0 h-100">
                             <img :src="other.image" class="rounded-4 mb-3 w-100 object-fit-cover shadow-sm"
                                 style="height: 200px;">
