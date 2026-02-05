@@ -28,6 +28,7 @@
                         </li>
                     </ul>
 
+
                     <ul v-if="!authState.isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <RouterLink class="nav-link" active-class="active" to="/login">Đăng nhập</RouterLink>
@@ -38,10 +39,9 @@
                     </ul>
                     <ul v-else class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <RouterLink class="nav-link" to="/profile">Hi, {{ authState.user.fullname }}</RouterLink>
-                        </li>
-                        <li class="nav-item">
-                            <RouterLink class="nav-link" active-class="active" to="/register">Đăng Ký</RouterLink>
+                            <RouterLink class="nav-link" active-class="active" to="/profile">
+                                Hi, {{ authState.user.fullname }}
+                            </RouterLink>
                         </li>
                     </ul>
                 </div>
@@ -54,9 +54,6 @@
 import { computed } from 'vue';
 import { authState } from '../../auth';
 
-
-
-
 </script>
 
 <style scoped>
@@ -67,6 +64,5 @@ import { authState } from '../../auth';
 .nav-link.active {
     font-weight: bold;
     color: #f05123 !important;
-    /* Ví dụ màu cam của Poly */
 }
 </style>

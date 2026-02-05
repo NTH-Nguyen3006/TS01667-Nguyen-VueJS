@@ -8,16 +8,16 @@ const userList = reactive([
         password: 'admin123'
     },
     {
-        username: 'lan_anh',
-        fullname: 'Nguyễn Lân Anh',
-        email: 'lananh@gmail.com',
-        password: 'securepassword'
+        username: 'luongphu',
+        fullname: 'Phạm Châu Lương Phú',
+        email: 'lp@gmail.com',
+        password: 'user123'
     },
     {
-        username: 'minh_tu',
-        fullname: 'Trần Minh Tú',
-        email: 'minhtu@gmail.com',
-        password: 'mypassword'
+        username: 'quoctam',
+        fullname: 'Mai Quốc Tam',
+        email: 'quoctam@gmail.com',
+        password: 'user123'
     }
 ]);
 

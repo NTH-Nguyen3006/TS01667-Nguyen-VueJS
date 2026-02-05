@@ -130,14 +130,17 @@ const handleSubmit = () => {
         id: posts.length + 1,
         title: dataa.title,
         author: authState.user.name,
-        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'yyyy' }),
+        date: new Date().toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }),
         category: dataa.category,
         image: dataa.imagePreview,
         description: dataa.content.substring(0, 150) + "...",
         tags: previewTags.value,
         section: 'project-sub'
     };
-
 
     posts.unshift(newPost);
 

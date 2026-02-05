@@ -1,7 +1,6 @@
 <template>
     <div class="container-lg my-3" v-if="currentPost">
         <div class="row justify-content-center">
-            <!-- Cột chính bên trái: Nội dung bài viết -->
             <div class="col-lg-8">
                 <div class="mb-4">
                     <div class="text-primary fw-bold mb-2">
@@ -10,73 +9,51 @@
                     <h1 class="display-5 fw-bold mb-3">{{ currentPost.title }}</h1>
 
                     <div class="d-flex flex-wrap gap-2 mb-4">
-                        <!-- Render Tags từ mảng -->
                         <span v-for="tag in currentPost.tags" :key="tag" class="tag-pill">
                             {{ tag }}
                         </span>
                     </div>
                 </div>
 
-                <!-- Ảnh bài viết -->
                 <img :src="currentPost.image" class="featured-image mb-5 shadow-sm w-100 rounded-4"
                     style="height: 450px; object-fit: cover;" :alt="currentPost.title">
 
-                <!-- Nội dung bài viết -->
                 <article class="post-content mb-5">
-                    <!-- Lead text lấy từ description -->
                     <p class="lead fw-normal text-muted mb-4">
                         {{ currentPost.description }}
                     </p>
 
-                    <p>
-                        Trí tuệ nhân tạo (AI) đang thay đổi cách chúng ta làm việc hàng ngày.
-                        Không chỉ dừng lại ở việc hỗ trợ soạn thảo văn bản, AI còn giúp các nhà thiết kế
-                        tối ưu hóa quy trình sáng tạo, từ khâu lên ý tưởng đến lúc hoàn thiện sản phẩm cuối cùng.
-                    </p>
 
-                    <h3 class="fw-bold mt-5 mb-3">Tầm quan trọng của công nghệ mới</h3>
-                    <p>
-                        Việc làm chủ các công cụ mới giúp chúng ta tiết kiệm thời gian và tập trung hơn
-                        vào tư duy chiến lược. Những trải nghiệm thực tế cho thấy năng suất lao động
-                        có thể tăng lên gấp đôi nếu biết áp dụng đúng quy trình.
-                    </p>
-
-                    <blockquote
-                        class="border-start border-primary border-4 ps-4 my-5 fst-italic text-muted bg-light py-3 rounded-end">
-                        "Sáng tạo không phải là tìm ra cái mới, mà là nhìn cái cũ dưới một lăng kính mới với sự hỗ trợ
-                        của công nghệ."
-                    </blockquote>
                 </article>
 
                 <hr class="my-5">
 
 
                 <section id="comments">
-                    <h4 class="fw-bold mb-4">Bình luận ()</h4>
+                    <h4 class="fw-bold mb-4">Bình luận ({{ countComment }})</h4>
                     <div class="mb-5">
-                        <div class="d-flex mb-4">
-                            <div class="ms-3 p-3 bg-light rounded-4 w-100">
+                        <div class="d-flex flex-column gap-3 mb-4">
+                            <div v-for="c in cmts" class="ms-3 p-3 bg-light rounded-4 w-100">
                                 <div class="d-flex justify-content-between mb-1">
-                                    <span class="fw-bold fs-5 text-primary"> Minh Anh </span>
-                                    <small class="text-muted">2 giờ trước</small>
+                                    <span class="fw-bold fs-5 text-primary"> {{ c.user }} </span>
                                 </div>
-                                <p class="mb-0 small">Bài viết rất hữu ích ạ!</p>
+                                <p class="mb-0 small">{{ c.comment }}</p>
                             </div>
+
                         </div>
                     </div>
 
 
-
                     <div class="card border-0 bg-light p-4 rounded-4 shadow-sm">
                         <h5 class="fw-bold mb-3">Để lại bình luận</h5>
-                        <form @submit.prevent>
+                        <form @submit.prevent="handlePostComment">
                             <div class="row g-3">
-                                <div class="col-md-6"><input type="text" class="form-control rounded-3 border-0 py-2"
-                                        placeholder="Tên của bạn"></div>
-                                <div class="col-md-6"><input type="email" class="form-control rounded-3 border-0 py-2"
-                                        placeholder="Email"></div>
-                                <div class="col-12"><textarea class="form-control rounded-3 border-0 py-2" rows="4"
-                                        placeholder="Viết bình luận..."></textarea></div>
+
+                                <div class="col-12">
+                                    <textarea class="form-control rounded-3 border-0 py-2" rows="4"
+                                        v-model.lazy="commentObj.comment" placeholder="Viết bình luận..."></textarea>
+                                </div>
+
                                 <div class="col-12 text-end"><button type="submit"
                                         class="btn btn-primary rounded-pill px-4 fw-bold">Gửi bình luận</button></div>
                             </div>
@@ -86,12 +63,10 @@
             </div>
 
 
-
             <div class="col-lg-4 ps-lg-5">
                 <div class="sticky-top" style="top: 90px; z-index: 1;">
                     <h5 class="fw-bold mb-4 pb-2 border-bottom">Bài viết mới nhất</h5>
                     <div class="vstack gap-4">
-                        <!-- Load 4 bài mới nhất trừ bài hiện tại -->
                         <router-link v-for="recent in recentPosts" :key="recent.id" :to="'/article/' + recent.id"
                             class="text-decoration-none d-flex align-items-center gap-3 group">
                             <img :src="recent.image" class="rounded-3 object-fit-cover shadow-sm"
@@ -107,7 +82,7 @@
             </div>
         </div>
 
-        <!-- Section: Bài viết khác ở dưới cùng -->
+
         <section class="container my-5 pt-5 border-top">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="fw-bold m-0">Có thể bạn quan tâm</h4>
@@ -142,26 +117,52 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { posts } from '../posts'; // Import mảng dữ liệu chung
+import { computed, reactive } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
+import { posts } from '../posts';
+import { comments } from '../comments';
+import { authState } from '../auth';
 
 const route = useRoute();
 
-// 1. Tìm bài viết hiện tại dựa trên ID từ URL
+const pid = route.params.id;
+
+const countComment = computed(() => {
+    return comments.filter(c => c.postId == pid).length;
+});
+
+const commentObj = reactive({
+    postId: pid,
+    comment: "",
+    user: authState.user ? authState.user.fullname : null
+});
+
 const currentPost = computed(() => {
-    return posts.find(p => p.id == route.params.id);
+    return posts.find(p => p.id == pid);
 });
 
-// 2. Lấy danh sách bài viết mới nhất cho Sidebar (loại trừ bài đang xem)
 const recentPosts = computed(() => {
-    return posts.filter(p => p.id != route.params.id).slice(0, 4);
+    return posts.filter(p => p.id != pid).slice(0, 4);
 });
 
-// 3. Lấy 3 bài viết khác cho phần dưới cùng
 const otherPosts = computed(() => {
-    return posts.filter(p => p.id != route.params.id).slice(4, 7);
+    return posts.filter(p => p.id != pid).slice(4, 7);
 });
+
+const cmts = computed(() => {
+    return comments.filter(c => c.postId == pid);
+});
+
+const handlePostComment = () => {
+    console.log(commentObj);
+    if (!commentObj.user) {
+        return alert("Vui lòng đăng nhập để có thể bình luận...");
+    } else if (commentObj.comment && commentObj.postId) {
+        comments.push({ ...commentObj });
+        commentObj.comment = "";
+    }
+
+};
 </script>
 
 <style scoped>

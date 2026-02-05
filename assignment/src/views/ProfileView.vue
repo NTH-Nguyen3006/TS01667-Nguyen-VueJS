@@ -102,7 +102,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { authState, logout } from '../auth.js';
+import { authState } from '../auth.js';
 
 const router = useRouter();
 
