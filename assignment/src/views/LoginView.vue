@@ -41,12 +41,11 @@
 
 
 <script setup>
-import { reactive, ref } from 'vue';
-import { login } from '../auth';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import router from '../router/router';
+import { login } from '../auth';
 
-// const router = useRouter();
+const router = useRouter();
 
 const dataa = reactive({
     emailOrUsername: "",
@@ -62,20 +61,9 @@ const handleLogin = () => {
         alert("Vui lòng nhập dữ liệu");
     }
 }
-
 </script>
 
 <style scoped>
-body {
-    background-image: url('/src/assets/black-dunes-minimal-website-background-picjumbo-com.jpeg');
-    object-fit: cover;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    place-items: unset;
-    display: flex;
-}
-
 main {
     height: auto;
 }

@@ -4,7 +4,9 @@
             style="max-width: 800px;">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="fw-bold m-0">Tạo bài viết mới</h2>
-                <RouterLink to="/" class="btn btn-primary">Quay về trang chủ</RouterLink>
+                <RouterLink to="/" class="btn btn-danger rounded-5">
+                    <i class="bi bi-arrow-left me-1"></i> Quay về trang chủ
+                </RouterLink>
             </div>
 
             <form @submit.prevent="handleSubmit">
@@ -69,19 +71,17 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 pt-4 border-top">
-                    <button type="button" @click="$router.push('/')" class="btn btn-light px-4 rounded-pill fw-bold">Hủy
-                        bỏ</button>
+                    <RouterLink type="button" to="/" class="btn btn-light px-4 rounded-pill fw-bold">
+                        Hủy bỏ
+                    </RouterLink>
                     <button type="submit" class="btn btn-primary px-5 rounded-pill fw-bold">Đăng bài ngay</button>
                 </div>
             </form>
         </div>
 
-        <div v-else class="text-center py-5">
-            <i class="bi bi-shield-lock text-muted display-1"></i>
-            <h2 class="fw-bold mt-4">Quyền truy cập bị hạn chế</h2>
-            <p class="text-secondary">Bạn cần đăng nhập để sử dụng tính năng tạo bài viết.</p>
-            <RouterLink to="/login" class="btn btn-primary rounded-pill px-4 mt-2">Đăng nhập ngay</RouterLink>
-        </div>
+        <RequireAuth v-else />
+
+
     </div>
 </template>
 
@@ -90,6 +90,7 @@ import { reactive, computed } from 'vue';
 import { authState } from '../auth';
 import { posts } from '../posts';
 import { useRouter } from 'vue-router';
+import RequireAuth from '../components/RequireAuth.vue';
 
 const router = useRouter();
 

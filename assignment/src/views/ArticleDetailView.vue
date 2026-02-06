@@ -22,15 +22,13 @@
                     <p class="lead fw-normal text-muted mb-4">
                         {{ currentPost.description }}
                     </p>
-
-
                 </article>
 
                 <hr class="my-5">
 
 
                 <section id="comments">
-                    <h4 class="fw-bold mb-4">Bình luận ({{ countComment }})</h4>
+                    <h4 class="fw-bold mb-4">Bình luận ({{ cmts.length }})</h4>
                     <div class="mb-5">
                         <div class="d-flex flex-column gap-3 mb-4">
                             <div v-for="c in cmts" class="ms-3 p-3 bg-light rounded-4 w-100">
@@ -67,7 +65,7 @@
                 <div class="sticky-top" style="top: 90px; z-index: 1;">
                     <h5 class="fw-bold mb-4 pb-2 border-bottom">Bài viết mới nhất</h5>
                     <div class="vstack gap-4">
-                        <router-link v-for="recent in recentPosts" :key="recent.id" :to="'/article/' + recent.id"
+                        <RouterLink v-for="recent in recentPosts" :key="recent.id" :to="'/article/' + recent.id"
                             class="text-decoration-none d-flex align-items-center gap-3 group">
                             <img :src="recent.image" class="rounded-3 object-fit-cover shadow-sm"
                                 style="width: 80px; height: 80px;">
@@ -76,7 +74,7 @@
                                     recent.title }}</h6>
                                 <small class="text-muted">{{ recent.date }}</small>
                             </div>
-                        </router-link>
+                        </RouterLink>
                     </div>
                 </div>
             </div>
@@ -86,30 +84,35 @@
         <section class="container my-5 pt-5 border-top">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="fw-bold m-0">Có thể bạn quan tâm</h4>
-                <router-link to="/" class="text-decoration-none small fw-bold">Xem tất cả →</router-link>
+                <RouterLink to="/" class="text-decoration-none small fw-bold">
+                    Xem tất cả <i class="bi bi-arrow-right"></i>
+                </RouterLink>
             </div>
 
             <div class="row g-4">
                 <div class="col-md-4" v-for="other in otherPosts" :key="other.id">
-                    <router-link :to="'/article/' + other.id" class="text-decoration-none">
+                    <RouterLink :to="'/article/' + other.id" class="text-decoration-none">
                         <div class="card border-0 h-100">
                             <img :src="other.image" class="rounded-4 mb-3 w-100 object-fit-cover shadow-sm"
-                                style="height: 200px;">
-                            <div class="text-primary fw-bold mb-1" style="font-size: 0.85rem;">{{ other.author }} • {{
-                                other.date }}</div>
-                            <h5 class="fw-bold text-dark mb-2" style="font-size: 1.1rem; line-height: 1.4;">{{
-                                other.title }}</h5>
+                                style="height: 200px; ">
+                            <div class="text-primary fw-bold mb-1" style="font-size: 0.85rem;">
+                                {{ other.author }} • {{ other.date }}
+                            </div>
+                            <h5 class="fw-bold text-dark mb-2" style="font-size: 1.1rem; line-height: 1.4;">
+                                {{ other.title }}
+                            </h5>
                             <div class="d-flex flex-wrap gap-2">
-                                <span v-for="tag in other.tags" :key="tag" class="tag-pill">{{ tag }}</span>
+                                <span v-for="tag in other.tags" :key="tag" class="tag-pill">
+                                    {{ tag }}
+                                </span>
                             </div>
                         </div>
-                    </router-link>
+                    </RouterLink>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Loading state nếu chưa tìm thấy bài -->
     <div v-else class="container text-center py-5">
         <div class="spinner-border text-primary" role="status"></div>
         <p class="mt-3">Đang tải bài viết...</p>
@@ -118,50 +121,49 @@
 
 <script setup>
 import { computed, reactive } from 'vue';
-import { RouterLink, useRoute } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { posts } from '../posts';
 import { comments } from '../comments';
 import { authState } from '../auth';
 
 const route = useRoute();
+const router = useRouter();
 
-const pid = route.params.id;
 
-const countComment = computed(() => {
-    return comments.filter(c => c.postId == pid).length;
-});
+const pid = computed(() => route.params.id);
 
 const commentObj = reactive({
-    postId: pid,
+    postId: pid.value,
     comment: "",
     user: authState.user ? authState.user.fullname : null
 });
 
-const currentPost = computed(() => {
-    return posts.find(p => p.id == pid);
-});
+const currentPost = computed(() => posts.find(p => p.id == pid.value));
 
 const recentPosts = computed(() => {
-    return posts.filter(p => p.id != pid).slice(0, 4);
+    return posts.filter(p => p.id != pid.value).slice(0, 4);
 });
 
 const otherPosts = computed(() => {
-    return posts.filter(p => p.id != pid).slice(4, 7);
+    return posts.filter(p => p.id != pid.value).slice(4, 7);
 });
 
 const cmts = computed(() => {
-    return comments.filter(c => c.postId == pid);
+    return comments.filter(c => c.postId == pid.value);
 });
 
 const handlePostComment = () => {
-    console.log(commentObj);
+    // console.log(commentObj);
     if (!commentObj.user) {
-        return alert("Vui lòng đăng nhập để có thể bình luận...");
+        router.push({
+            path: '/login',
+            query: { redirect: route.fullPath }
+        });
+
     } else if (commentObj.comment && commentObj.postId) {
         comments.push({ ...commentObj });
         commentObj.comment = "";
     }
-
 };
 </script>
 

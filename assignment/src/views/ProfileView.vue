@@ -1,12 +1,11 @@
 <template>
-    <div class="container my-5">
+    <div class="container my-4">
         <div v-if="authState.isLoggedIn" class="row g-5">
             <div class="col-lg-4">
-                <div class="bg-light shadow-sm rounded-5 p-4">
+                <div class="bg-light shadow-sm rounded-5 p-4 shadow-lg">
                     <div class="header d-flex align-items-center mb-3">
                         <div class="mx-3">
-                            <h5 class="m-0 fw-bold">{{ authState.user?.name }}</h5>
-                            <h5 class="text-primary">{{ authState.user?.fullname }}</h5>
+                            <h5 class="text-primary fw-bolder">{{ authState.user?.fullname }}</h5>
                         </div>
                     </div>
                     <hr class="mb-4 opacity-10">
@@ -43,14 +42,14 @@
                         <a href="javascript:void(0)" @click="handleLogout"
                             class="list-group-item list-group-item-action border-0 rounded-3 d-flex align-items-center py-3 text-danger mt-2">
                             <div class="me-3"><i class="bi bi-box-arrow-right fs-5"></i></div>
-                            <span class="flex-grow-1 fw-medium">Log Out</span>
+                            <span class="flex-grow-1 fw-medium">Đăng xuất</span>
                         </a>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-8">
-                <div class="bg-light rounded-5 p-5 shadow-sm">
+                <div class="bg-light rounded-5 p-5 shadow-lg">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <div class="d-flex align-items-center">
                             <div class="mx-3">
@@ -88,21 +87,30 @@
                     </div>
                 </div>
             </div>
+            <ActorArticle class="mt-5 shadow-lg p-1 rounded-5" />
         </div>
 
-        <div v-else class="text-center py-5">
+        <!-- <div v-else class="text-center py-5">
             <div class="display-1 text-muted mb-4"><i class="bi bi-person-lock"></i></div>
             <h2 class="fw-bold">Bạn chưa đăng nhập</h2>
             <p class="text-secondary">Vui lòng đăng nhập để xem thông tin cá nhân của bạn.</p>
-            <button @click="router.push('/login')" class="btn btn-primary rounded-pill px-4 mt-3">Đến trang Đăng
-                nhập</button>
-        </div>
+            <button @click="router.push('/login')" class="btn btn-primary rounded-pill px-4 mt-3">
+                Đến trang Đăng nhập <i class="bi bi-arrow-bar-right"></i>
+            </button>
+        </div> -->
+
+        <RequireAuth v-else />
+
+
+
     </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { authState } from '../auth.js';
+import { authState, logout } from '../auth.js';
+import ActorArticle from '../components/ActorArticle.vue';
+import RequireAuth from '../components/RequireAuth.vue';
 
 const router = useRouter();
 

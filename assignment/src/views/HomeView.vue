@@ -1,16 +1,17 @@
 <template>
     <div class="container py-5">
         <section class="mb-5">
-            <h1 class="fw-bold mb-4">Bài viết nổi bật</h1>
+            <h1 class="fw-bold mb-3">Bài viết nổi bật</h1>
             <hr>
             <div class="row g-4 mb-4">
                 <div class="col-lg-6" v-if="featuredMain">
                     <RouterLink :to="'/article/' + featuredMain.id" class="text-decoration-none text-dark">
-                        <div class="card border-0 bg-transparent rounded-5 post-card">
+                        <!-- <div class="card border-0 bg-transparent rounded-5 post-card">
                             <img :src="featuredMain.image" class="card-img-top mb-3 rounded-3 main-img" alt="Blog Main">
                             <div class="card-body p-0">
-                                <p class="text-primary fw-semibold small mb-1">{{ featuredMain.author }} • {{
-                                    featuredMain.date }}</p>
+                                <p class="text-primary fw-semibold small mb-1">
+                                    {{ featuredMain.author }} - {{ featuredMain.date }}
+                                </p>
                                 <div class="d-flex justify-content-between align-items-start">
                                     <h3 class="fw-bold h4">{{ featuredMain.title }}</h3>
                                     <i class="bi bi-arrow-up-right fs-5"></i>
@@ -21,10 +22,11 @@
                                         class="badge rounded-pill border text-dark fw-normal px-3">{{ tag }}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+
+                        <ArticleCard :article="featuredMain" />
                     </RouterLink>
                 </div>
-
 
 
                 <div class="col-lg-6">
@@ -57,16 +59,18 @@
             <div class="row g-4 mb-5">
                 <div class="col-lg-6" v-if="projectMain">
                     <RouterLink :to="'/article/' + projectMain.id" class="text-decoration-none text-dark">
-                        <div class="card border-0 post-card">
+                        <!-- <div class="card border-0 post-card">
                             <img :src="projectMain.image" class="card-img-top rounded-3 mb-3 main-img">
                             <div class="card-body p-0">
                                 <p class="text-primary fw-semibold small mb-2">
-                                    {{ projectMain.author }} •
-                                    {{ projectMain.date }}</p>
+                                    {{ projectMain.author }} - {{ projectMain.date }}
+                                </p>
                                 <h3 class="fw-bold h4">{{ projectMain.title }}</h3>
                                 <p class="text-muted small">{{ projectMain.description }}</p>
                             </div>
-                        </div>
+                        </div> -->
+
+                        <ArticleCard :article="projectMain" />
                     </RouterLink>
                 </div>
                 <div class="col-lg-6">
@@ -96,6 +100,8 @@
 </template>
 
 <script setup>
+import ArticleCard from "../components/ArticleCard.vue"
+
 import { computed } from 'vue';
 import { posts } from '../posts';
 

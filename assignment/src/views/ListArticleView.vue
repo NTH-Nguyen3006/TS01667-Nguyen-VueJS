@@ -26,28 +26,22 @@
         <!-- Danh sách bài viết (Grid 3 cột) -->
         <div class="row g-4" v-if="filteredPosts.length > 0">
             <div class="col-md-6 col-lg-4" v-for="post in filteredPosts" :key="post.id">
-                <!-- Click vào card để đi đến Detail -->
-                <router-link :to="'/article/' + post.id" class="text-decoration-none text-dark h-100 d-block">
-                    <div class="card h-100 border-0 bg-transparent post-card">
+                <RouterLink :to="'/article/' + post.id" class="text-decoration-none text-dark h-100 d-block">
+                    <!-- <div class="card border-0 bg-transparent rounded-5 post-card">
                         <div class="img-container overflow-hidden rounded-4 mb-3 shadow-sm">
                             <img :src="post.image" class="card-img-top object-fit-cover"
                                 style="height: 240px; transition: 0.5s;" :alt="post.title">
                         </div>
-
                         <div class="card-body p-0">
                             <div class="d-flex align-items-center mb-2">
                                 <span class="text-primary fw-bold small">{{ post.author }}</span>
                                 <span class="mx-2 text-muted">•</span>
                                 <span class="text-muted small">{{ post.date }}</span>
                             </div>
-
                             <h5 class="fw-bold mb-2 post-title" style="line-height: 1.4;">{{ post.title }}</h5>
-
                             <p class="text-muted small mb-3 text-truncate-3">
-                                {{ post.description || `'Khám phá chi tiết nội dung bài viết này để tìm hiểu thêm những
-                                kiến thức bổ ích'` }}
+                                {{ post.description }}
                             </p>
-
                             <div class="d-flex flex-wrap gap-2 mt-auto">
                                 <span v-for="tag in post.tags" :key="tag"
                                     class="badge rounded-pill border text-dark fw-normal bg-white px-3 py-2">
@@ -55,8 +49,10 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                </router-link>
+                    </div> -->
+
+                    <article-card :article="post" />
+                </RouterLink>
             </div>
         </div>
 
@@ -71,18 +67,20 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { posts } from '../posts'; // Import dữ liệu từ file chung
+import { posts } from '../posts';
+import ArticleCard from '../components/ArticleCard.vue';
 
 const searchQuery = ref('');
 const selectedCategory = ref('All');
 
-// Lấy danh sách danh mục duy nhất từ posts
+
+
 const categories = computed(() => {
     const cats = posts.map(p => p.category);
     return [...new Set(cats)];
 });
 
-// Logic Lọc bài viết
+
 const filteredPosts = computed(() => {
     return posts.filter(post => {
         const matchSearch = post.title.toLowerCase().includes(searchQuery.value.toLowerCase());
@@ -98,34 +96,37 @@ const resetFilters = () => {
 </script>
 
 <style scoped>
-/* Hiệu ứng zoom ảnh khi hover */
-.post-card:hover img {
-    transform: scale(1.1);
-}
+:deep() {
+    img {
+        height: 250px !important;
+    }
 
-.post-card:hover .post-title {
-    color: #0d6efd;
-}
+    .post-card:hover :deep {
+        transform: scale(1.1);
+    }
 
-/* Giới hạn 3 dòng cho mô tả */
-.text-truncate-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+    .post-card:hover .post-title {
+        color: #0d6efd;
+    }
 
-.post-card {
-    transition: transform 0.3s ease;
-}
+    .text-truncate-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 
-.post-card:hover {
-    transform: translateY(-5px);
-}
+    .post-card {
+        transition: transform 0.3s ease;
+    }
 
-/* Tùy chỉnh input search */
-.form-control:focus {
-    background-color: #fff !important;
-    border: 1px solid #0d6efd !important;
+    .post-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .form-control:focus {
+        background-color: #fff !important;
+        border: 1px solid #0d6efd !important;
+    }
 }
 </style>
