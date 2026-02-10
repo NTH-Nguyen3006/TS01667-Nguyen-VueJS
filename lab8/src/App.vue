@@ -1,27 +1,30 @@
 <template>
   <div id="app">
-    <header>
-      <h1>FPT Polytechnic - Lab 8</h1>
-    </header>
-    <main>
-      <RouterView />
+    <AppHeader />
+
+    <main class="container">
+      <transition name="fade" mode="out-in">
+        <RouterView />
+      </transition>
     </main>
+
+    <AppFooter />
   </div>
 </template>
 
+<script>
+import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
+
+export default {
+  name: 'App',
+  components: {
+    AppHeader,
+    AppFooter
+  }
+}
+</script>
+
 <style>
-nav {
-  margin-bottom: 20px;
-}
-
-nav a {
-  margin-right: 10px;
-  color: blue;
-  text-decoration: none;
-}
-
-nav a.router-link-active {
-  font-weight: bold;
-  color: red;
-}
+/* App specific styles if needed */
 </style>
