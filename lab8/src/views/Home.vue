@@ -8,10 +8,10 @@
                     Khám phá những bài viết mới nhất của chúng tôi ngay hôm nay.
                 </p>
                 <div class="d-flex justify-content-center gap-3">
-                    <router-link to="/blog" class="btn btn-primary btn-lg px-5 rounded-pill">Khám phá bài
-                        viết</router-link>
-                    <router-link to="/me" class="btn btn-outline-secondary btn-lg px-5 rounded-pill">Về
-                        tôi</router-link>
+                    <RouterLink to="/blog" class="btn btn-primary btn-lg px-5 rounded-pill">Khám phá bài
+                        viết</RouterLink>
+                    <RouterLink to="/me" class="btn btn-outline-secondary btn-lg px-5 rounded-pill">Về
+                        tôi</RouterLink>
                 </div>
             </div>
         </div>

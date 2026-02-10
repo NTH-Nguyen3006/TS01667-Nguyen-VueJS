@@ -25,6 +25,7 @@ const routes = [
         component: UserProfile,
         alias: "/me",
         children: [
+            { path: "", redirect: { name: "UserProfileInfo" } },
             { path: "info", name: "UserProfileInfo", component: UserProfileInfo },
             { path: "settings", name: "UserProfileSettings", component: UserProfileSettings },
         ],

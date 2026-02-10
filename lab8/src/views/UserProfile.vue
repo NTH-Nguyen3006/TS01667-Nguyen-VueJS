@@ -11,14 +11,14 @@
                     </div>
 
                     <div class="list-group list-group-flush rounded-3">
-                        <router-link to="/profile/info"
+                        <RouterLink to="/profile/info"
                             class="list-group-item list-group-item-action py-3 d-flex align-items-center">
                             <i class="bi bi-person-circle me-3 text-primary"></i> Thông tin cơ bản
-                        </router-link>
-                        <router-link to="/profile/settings"
+                        </RouterLink>
+                        <RouterLink to="/profile/settings"
                             class="list-group-item list-group-item-action py-3 d-flex align-items-center">
                             <i class="bi bi-gear-fill me-3 text-primary"></i> Cài đặt tài khoản
-                        </router-link>
+                        </RouterLink>
                     </div>
                 </div>
             </div>
@@ -26,11 +26,13 @@
             <div class="col-md-8">
                 <div class="custom-card p-4">
                     <!-- Nơi hiển thị các component con (info, settings) -->
-                    <router-view v-slot="{ Component }">
+
+
+                    <RouterView v-slot="{ Component }">
                         <transition name="fade" mode="out-in">
                             <component :is="Component" />
                         </transition>
-                    </router-view>
+                    </RouterView>
                 </div>
             </div>
         </div>
@@ -44,7 +46,7 @@ export default {
 </script>
 
 <style scoped>
-.list-group-item.router-link-active {
+.list-group-item.RouterLink-active {
     background-color: var(--bg-light);
     color: var(--primary-color);
     font-weight: 600;

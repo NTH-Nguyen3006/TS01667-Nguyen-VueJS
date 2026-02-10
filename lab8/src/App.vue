@@ -3,9 +3,11 @@
     <AppHeader />
 
     <main class="container">
-      <transition name="fade" mode="out-in">
-        <RouterView />
-      </transition>
+      <RouterView v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </RouterView>
     </main>
 
     <AppFooter />
@@ -15,6 +17,7 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+import { RouterView } from 'vue-router';
 
 export default {
   name: 'App',
