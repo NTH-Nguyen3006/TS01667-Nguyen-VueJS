@@ -1,7 +1,7 @@
 <template>
     <footer class="bg-white py-4 mt-auto border-top">
         <div class="container text-center text-muted">
-            <small>&copy; 2024 FPT Polytechnic - Lab 8. Developed with ❤️</small>
+            <small>&copy; 2026 FPT Polytechnic - Lab 8. Developed by Nguyen Bo Bo</small>
         </div>
     </footer>
 </template>
